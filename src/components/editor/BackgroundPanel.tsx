@@ -52,11 +52,6 @@ export function BackgroundPanel() {
     
     canvas.sendObjectToBack(bgRect);
     canvas.renderAll();
-
-    // Automatically download after applying
-    setTimeout(() => {
-      useEditorStore.getState().downloadImage();
-    }, 100);
   };
 
   const applyImageBackground = (url: string) => {
@@ -96,11 +91,6 @@ export function BackgroundPanel() {
       canvas.add(img);
       canvas.sendObjectToBack(img);
       canvas.renderAll();
-
-      // Automatically download after applying
-      setTimeout(() => {
-        useEditorStore.getState().downloadImage();
-      }, 100);
     }).catch(err => {
       console.error("Failed to load background image:", err);
     });
