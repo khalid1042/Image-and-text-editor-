@@ -29,6 +29,9 @@ export function EditorLayout() {
     try {
       setIsDetecting(true);
       const texts = await defaultOCRProvider.detectText(originalImage);
+      if (texts.length === 0) {
+        alert("No text could be detected in this image. Make sure the text is clear and readable!");
+      }
       setDetectedTexts(texts);
     } catch (err) {
       console.error(err);

@@ -19,8 +19,8 @@ export class TesseractOCRProvider implements OCRProvider {
       blocks.forEach((block: any) => {
         block.paragraphs?.forEach((para: any) => {
           para.lines?.forEach((line: any, index: number) => {
-            // Only keep lines with decent confidence
-            if (line.confidence > 50 && line.text.trim().length > 0) {
+            // Only keep lines with decent confidence (lowered to 10 to catch stylized text)
+            if (line.confidence > 10 && line.text.trim().length > 0) {
               detectedTexts.push({
                 id: `text-${Date.now()}-${detectedTexts.length}-${index}`,
                 text: line.text.trim(),
