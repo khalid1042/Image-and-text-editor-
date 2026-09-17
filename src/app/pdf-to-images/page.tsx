@@ -10,7 +10,7 @@ import styles from '@/app/page.module.css';
 // For PDF JS
 import * as pdfjsLib from 'pdfjs-dist';
 // Need to set workerSrc for pdf.js to work properly
-pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+pdfjsLib.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
 
 import JSZip from 'jszip';
 
