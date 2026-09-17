@@ -21,7 +21,33 @@ export function BackgroundPanel() {
   const { canvas } = useEditorStore();
   const [activeTab, setActiveTab] = useState<'library' | 'upload' | 'color' | 'ai'>('color');
   const [dragActive, setDragActive] = useState(false);
+  const [aiPrompt, setAiPrompt] = useState("");
+  const [isGeneratingAi, setIsGeneratingAi] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleGenerateAi = async () => {
+    if (!aiPrompt.trim()) return;
+    setIsGeneratingAi(true);
+    try {
+      const seed = Math.floor(Math.random() * 1000000);
+      const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(aiPrompt)}?seed=${seed}&width=1024&height=1024&nologo=true`;
+      
+      // Fetch the image first to keep the loading spinner active during generation
+      const response = await fetch(url);
+      if (!response.ok) throw new Error("Failed to fetch image");
+      
+      const blob = await response.blob();
+      const objectUrl = URL.createObjectURL(blob);
+      
+      applyImageBackground(objectUrl);
+    } catch (error) {
+      // Don't use console.error here to avoid triggering Next.js dev overlay on network errors
+      console.warn("Failed to generate AI background:", error);
+      alert("Failed to generate image. Please try again.");
+    } finally {
+      setIsGeneratingAi(false);
+    }
+  };
 
   const applyColorBackground = (color: string) => {
     if (!canvas) return;
@@ -242,12 +268,53 @@ export function BackgroundPanel() {
         {activeTab === 'ai' && (
           <div style={{ textAlign: 'center', padding: '1rem 0' }}>
             <h4 style={{ fontSize: '0.875rem', marginBottom: '0.5rem', color: 'var(--text-primary)' }}>Generate with AI</h4>
-            <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>Describe a background and AI will create it for you.</p>
+            <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>Describe a background and AI will create it for you.</p>
+            
+            <input 
+              type="text" 
+              placeholder="e.g. A futuristic cyber city at night"
+              value={aiPrompt}
+              onChange={(e) => setAiPrompt(e.target.value)}
+              disabled={isGeneratingAi}
+              style={{
+                width: '100%',
+                padding: '0.75rem',
+                borderRadius: '4px',
+                border: '1px solid var(--border-color)',
+                background: 'var(--bg-primary)',
+                color: 'var(--text-primary)',
+                marginBottom: '1rem',
+                fontSize: '0.875rem'
+              }}
+            />
+
             <button 
-              disabled
-              style={{ width: '100%', padding: '0.75rem', marginTop: '1rem', background: 'var(--bg-primary)', color: 'var(--text-tertiary)', border: '1px solid var(--border-color)', borderRadius: '4px', fontWeight: 600, cursor: 'not-allowed' }}
+              onClick={handleGenerateAi}
+              disabled={isGeneratingAi || !aiPrompt.trim()}
+              style={{ 
+                width: '100%', 
+                padding: '0.75rem', 
+                background: 'var(--accent-primary)', 
+                color: 'white', 
+                border: 'none', 
+                borderRadius: '4px', 
+                fontWeight: 600, 
+                cursor: (isGeneratingAi || !aiPrompt.trim()) ? 'not-allowed' : 'pointer',
+                opacity: (isGeneratingAi || !aiPrompt.trim()) ? 0.7 : 1,
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: '0.5rem'
+              }}
             >
-              Coming Soon
+              {isGeneratingAi ? (
+                <>
+                  <span style={{ animation: 'spin 1s linear infinite' }}>⏳</span>
+                  Generating...
+                </>
+              ) : (
+                'Generate Image'
+              )}
             </button>
           </div>
         )}
