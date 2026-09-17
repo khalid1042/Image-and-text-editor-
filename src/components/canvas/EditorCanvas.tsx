@@ -25,13 +25,26 @@ export function EditorCanvas() {
 
     // Resize handling
     const handleResize = () => {
-      if (containerRef.current) {
+      if (!containerRef.current) return;
+      
+      const bgImage = canvas.getObjects().find(o => (o as any).id === "background-image") as fabric.Image;
+      if (bgImage) {
+        const logicalWidth = bgImage.width! * bgImage.scaleX!;
+        const logicalHeight = bgImage.height! * bgImage.scaleY!;
+        
+        const containerWidth = containerRef.current.clientWidth;
+        const containerHeight = containerRef.current.clientHeight;
+        const scaleX = containerWidth / logicalWidth;
+        const scaleY = containerHeight / logicalHeight;
+        const zoom = Math.min(scaleX, scaleY, 0.95);
+
         canvas.setDimensions({
-          width: containerRef.current.clientWidth,
-          height: containerRef.current.clientHeight,
+          width: logicalWidth * zoom,
+          height: logicalHeight * zoom,
         });
-        canvas.renderAll();
+        canvas.setZoom(zoom);
       }
+      canvas.renderAll();
     };
     window.addEventListener("resize", handleResize);
 
@@ -62,58 +75,63 @@ export function EditorCanvas() {
 
     fabric.Image.fromURL(originalImage, { crossOrigin: 'anonymous' }).then((img) => {
       // Remove existing main image if any
-      const existingImg = fabricCanvas.getObjects().find(o => (o as any).id === "background-image");
-      if (existingImg) {
-        fabricCanvas.remove(existingImg);
-      }
+      const existingImg = fabricCanvas.getObjects().find(o => (o as any).id === "background-image") as fabric.Image;
 
       const imgWidth = img.width || 800;
       const imgHeight = img.height || 600;
 
-      // Calculate zoom to fit container
-      const containerWidth = containerRef.current?.clientWidth || 800;
-      const containerHeight = containerRef.current?.clientHeight || 600;
-      const scaleX = containerWidth / imgWidth;
-      const scaleY = containerHeight / imgHeight;
-      const zoom = Math.min(scaleX, scaleY, 0.95); // 0.95 to leave a little padding
+      if (existingImg) {
+        const oldWidth = existingImg.width! * existingImg.scaleX!;
+        const oldHeight = existingImg.height! * existingImg.scaleY!;
+        
+        img.set({
+          left: existingImg.left,
+          top: existingImg.top,
+          scaleX: oldWidth / imgWidth,
+          scaleY: oldHeight / imgHeight,
+          selectable: true,
+          evented: true,
+          id: "background-image"
+        } as any);
 
-      // Set canvas to the exact scaled image dimensions!
-      fabricCanvas.setDimensions({
-        width: imgWidth * zoom,
-        height: imgHeight * zoom,
-      });
-      fabricCanvas.setZoom(zoom);
+        fabricCanvas.remove(existingImg);
+        fabricCanvas.add(img);
 
-      img.set({
-        left: 0,
-        top: 0,
-        scaleX: 1,
-        scaleY: 1,
-        selectable: true,
-        evented: true,
-        id: "background-image" // custom property
-      } as any);
+        fabricCanvas.sendObjectToBack(img);
+        
+        const customBgImg = fabricCanvas.getObjects().find(o => (o as any).id === "custom-background-image");
+        if (customBgImg) fabricCanvas.sendObjectToBack(customBgImg);
+        
+        const bgRect = fabricCanvas.getObjects().find(o => (o as any).id === "custom-background-rect");
+        if (bgRect) fabricCanvas.sendObjectToBack(bgRect);
 
-      fabricCanvas.add(img);
-      fabricCanvas.sendObjectToBack(img);
-      
-      // Update background rect if it exists to match new canvas size
-      const bgRect = fabricCanvas.getObjects().find(o => (o as any).id === "custom-background-rect");
-      if (bgRect) {
-        bgRect.set({ width: imgWidth, height: imgHeight });
-        fabricCanvas.sendObjectToBack(bgRect);
-      }
+      } else {
+        // Calculate zoom to fit container
+        const containerWidth = containerRef.current?.clientWidth || 800;
+        const containerHeight = containerRef.current?.clientHeight || 600;
+        const scaleX = containerWidth / imgWidth;
+        const scaleY = containerHeight / imgHeight;
+        const zoom = Math.min(scaleX, scaleY, 0.95); // 0.95 to leave a little padding
 
-      // Update background image if it exists to match new canvas size
-      const bgImg = fabricCanvas.getObjects().find(o => (o as any).id === "custom-background-image");
-      if (bgImg) {
-        // Simple cover logic
-        const bgScaleX = imgWidth / (bgImg.width || 1);
-        const bgScaleY = imgHeight / (bgImg.height || 1);
-        const bgScale = Math.max(bgScaleX, bgScaleY);
-        bgImg.set({ scaleX: bgScale, scaleY: bgScale });
-        fabricCanvas.centerObject(bgImg);
-        fabricCanvas.sendObjectToBack(bgImg);
+        // Set canvas to the exact scaled image dimensions!
+        fabricCanvas.setDimensions({
+          width: imgWidth * zoom,
+          height: imgHeight * zoom,
+        });
+        fabricCanvas.setZoom(zoom);
+
+        img.set({
+          left: 0,
+          top: 0,
+          scaleX: 1,
+          scaleY: 1,
+          selectable: true,
+          evented: true,
+          id: "background-image" // custom property
+        } as any);
+
+        fabricCanvas.add(img);
+        fabricCanvas.sendObjectToBack(img);
       }
       
       fabricCanvas.renderAll();
