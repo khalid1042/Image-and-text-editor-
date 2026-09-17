@@ -56,6 +56,7 @@
   margin-bottom: 1.5rem;
   background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: -1px;
 }
@@ -219,6 +220,20 @@
   color: var(--text-secondary);
   border-top: 1px solid var(--border-color);
   background: var(--bg-secondary);
+}
+
+.guideLink {
+  display: block;
+  padding: 1.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.2s ease;
+}
+
+.guideLink:hover {
+  border-color: var(--accent-primary);
 }
 
 @media (max-width: 768px) {

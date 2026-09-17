@@ -2,7 +2,7 @@ import { EditorLayout } from "@/components/editor/EditorLayout";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Change Image Background Online | Add New Background | TextEdit.ai",
+  title: "Change Image Background Online | Add New Background | photext.ai",
   description: "Remove the background from your image and add a new solid color or photo background instantly. 100% free online tool.",
 };
 

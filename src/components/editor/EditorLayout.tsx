@@ -111,6 +111,11 @@ export function EditorLayout() {
       // Update original image with the new transparent one
       setOriginalImage(transparentUrl);
       setActiveTool('background');
+      
+      // Give the canvas a moment to asynchronously load and render the new image URL
+      setTimeout(() => {
+        useEditorStore.getState().downloadImage();
+      }, 800);
     } catch (err) {
       console.error(err);
       alert("Failed to remove background.");
@@ -127,26 +132,7 @@ export function EditorLayout() {
   };
 
   const handleDownload = () => {
-    const { canvas } = useEditorStore.getState();
-    if (!canvas) return;
-    
-    // Deselect everything so bounding boxes aren't downloaded
-    canvas.discardActiveObject();
-    canvas.renderAll();
-
-    const zoom = canvas.getZoom() || 1;
-    const dataURL = canvas.toDataURL({
-      format: 'png',
-      quality: 1,
-      multiplier: 1 / zoom // Export exactly at 1:1 original resolution
-    });
-
-    const link = document.createElement('a');
-    link.download = `edited-image-${Date.now()}.png`;
-    link.href = dataURL;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    useEditorStore.getState().downloadImage();
   };
 
   useEffect(() => {
@@ -165,7 +151,7 @@ export function EditorLayout() {
       {/* Top Bar */}
       <header className={styles.topbar}>
         <div className={styles.logo} onClick={() => router.push("/")}>
-          <span>TextEdit.ai</span>
+          <span>photext.ai</span>
         </div>
         
         <div className={styles.topActions}>

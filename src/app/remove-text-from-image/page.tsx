@@ -2,7 +2,7 @@ import { EditorLayout } from "@/components/editor/EditorLayout";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Remove Text From Image Online | AI Eraser | TextEdit.ai",
+  title: "Remove Text From Image Online | AI Eraser | photext.ai",
   description: "Seamlessly remove or erase text from images online. Our AI accurately fills the background so it looks like the text was never there.",
 };
 

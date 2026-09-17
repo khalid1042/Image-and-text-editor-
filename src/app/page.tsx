@@ -9,7 +9,7 @@ export default function Home() {
     <div className={styles.container}>
       <header className={styles.header}>
         <div className={styles.logo}>
-          <span className={styles.logoText}>TextEdit.ai</span>
+          <span className={styles.logoText}>photext.ai</span>
         </div>
         <nav className={styles.nav}>
           <Link href="/edit-text-in-image">Edit Text</Link>
@@ -59,7 +59,7 @@ export default function Home() {
       </main>
 
       <footer className={styles.footer}>
-        <p>&copy; 2026 TextEdit.ai. All rights reserved.</p>
+        <p>&copy; 2026 photext.ai. All rights reserved.</p>
       </footer>
     </div>
   );

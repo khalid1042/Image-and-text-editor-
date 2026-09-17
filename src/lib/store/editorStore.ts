@@ -28,9 +28,11 @@ export interface EditorState {
 
   backgroundColor: string | null;
   setBackgroundColor: (color: string | null) => void;
+
+  downloadImage: () => void;
 }
 
-export const useEditorStore = create<EditorState>((set) => ({
+export const useEditorStore = create<EditorState>((set, get) => ({
   originalImage: null,
   setOriginalImage: (image) => set({ originalImage: image }),
   
@@ -57,4 +59,27 @@ export const useEditorStore = create<EditorState>((set) => ({
 
   backgroundColor: null,
   setBackgroundColor: (color) => set({ backgroundColor: color }),
+
+  downloadImage: () => {
+    const { canvas } = get();
+    if (!canvas) return;
+    
+    // Deselect everything so bounding boxes aren't downloaded
+    canvas.discardActiveObject();
+    canvas.renderAll();
+
+    const zoom = canvas.getZoom() || 1;
+    const dataURL = canvas.toDataURL({
+      format: 'png',
+      quality: 1,
+      multiplier: 1 / zoom // Export exactly at 1:1 original resolution
+    });
+
+    const link = document.createElement('a');
+    link.download = `edited-image-${Date.now()}.png`;
+    link.href = dataURL;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
 }));
