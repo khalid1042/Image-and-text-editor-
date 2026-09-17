@@ -11,6 +11,7 @@ import { EditorCanvas } from "@/components/canvas/EditorCanvas";
 import { defaultOCRProvider } from "@/lib/services/ocr/tesseractProvider";
 import { PropertiesPanel } from "@/components/editor/PropertiesPanel";
 import { removeImageBackground } from "@/lib/services/background/bgRemoval";
+import { AIEditModal } from "@/components/editor/AIEditModal";
 
 export function EditorLayout() {
   const router = useRouter();
@@ -23,6 +24,9 @@ export function EditorLayout() {
     undo, redo, history, historyIndex,
     panelsVisible, setPanelsVisible
   } = useEditorStore();
+
+  const [isAIModalOpen, setIsAIModalOpen] = React.useState(false);
+  const [aiOriginalText, setAiOriginalText] = React.useState("");
 
   const handleOCR = async () => {
     if (!originalImage) return;
@@ -106,7 +110,26 @@ export function EditorLayout() {
   };
 
   const handleAIEdit = () => {
-    alert("AI Edit feature is coming soon!");
+    if (!canvas) return;
+    const activeObj = canvas.getActiveObject() as any;
+    
+    // Check if the selected object is a Fabric.js IText or Text object
+    if (activeObj && (activeObj.type === 'i-text' || activeObj.type === 'text' || activeObj.type === 'textbox')) {
+      setAiOriginalText(activeObj.text || "");
+      setIsAIModalOpen(true);
+    } else {
+      alert("Please select a text layer on the canvas first.");
+    }
+  };
+
+  const handleAIApply = (newText: string) => {
+    if (!canvas) return;
+    const activeObj = canvas.getActiveObject() as any;
+    if (activeObj && (activeObj.type === 'i-text' || activeObj.type === 'text' || activeObj.type === 'textbox')) {
+      activeObj.set({ text: newText });
+      canvas.renderAll();
+      useEditorStore.getState().saveHistoryState();
+    }
   };
 
   const handleRemoveBackground = async () => {
@@ -252,6 +275,12 @@ export function EditorLayout() {
           </aside>
         )}
         
+        <AIEditModal 
+          isOpen={isAIModalOpen}
+          onClose={() => setIsAIModalOpen(false)}
+          originalText={aiOriginalText}
+          onApply={handleAIApply}
+        />
       </div>
     </div>
   );
