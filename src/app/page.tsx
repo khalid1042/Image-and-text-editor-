@@ -5,6 +5,7 @@ import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { MoreDropdown } from "@/components/ui/MoreDropdown";
 import { ImageUploader } from "@/components/upload/ImageUploader";
 import { SampleImages } from "@/components/upload/SampleImages";
+import { SeoContent } from "@/components/home/SeoContent";
 
 export default function Home() {
   return (
@@ -38,29 +39,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className={styles.content}>
-          <h2 className={styles.h2}>Edit Any Text in an Image in Seconds</h2>
-          <p>Whether you need to change a price tag, translate a sign, or fix a typo in a screenshot, our AI understands the text and restores the background seamlessly.</p>
-          
-          <div className={styles.features}>
-            <div className={styles.featureCard}>
-              <h3>Upload Your Image</h3>
-              <p>Drag and drop any JPG, PNG, or WEBP file.</p>
-            </div>
-            <div className={styles.featureCard}>
-              <h3>Select the Text</h3>
-              <p>Our AI automatically detects text regions. Just click what you want to edit.</p>
-            </div>
-            <div className={styles.featureCard}>
-              <h3>Change or Replace</h3>
-              <p>Type your new text. The AI matches the font and restores the background.</p>
-            </div>
-            <div className={styles.featureCard}>
-              <h3>Download</h3>
-              <p>Export your high-quality edited image instantly.</p>
-            </div>
-          </div>
-        </section>
+        <SeoContent />
       </main>
 
       <footer className={styles.footer}>

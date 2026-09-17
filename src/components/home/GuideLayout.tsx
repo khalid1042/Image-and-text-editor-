@@ -1,0 +1,44 @@
+"use client";
+
+import React from "react";
+import Link from "next/link";
+import styles from "@/app/page.module.css";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { MoreDropdown } from "@/components/ui/MoreDropdown";
+
+export function GuideLayout({ title, children }: { title: string, children: React.ReactNode }) {
+  return (
+    <div className={styles.container}>
+      <header className={styles.header}>
+        <div className={styles.logo}>
+          <Link href="/" className={styles.logoText} style={{ textDecoration: 'none' }}>photext.ai</Link>
+        </div>
+        <nav className={styles.nav}>
+          <Link href="/edit-text-in-image">Edit Text</Link>
+          <Link href="/remove-text-from-image">Remove Text</Link>
+          <Link href="/remove-background-from-image">Remove BG</Link>
+          <Link href="/guides">Guides</Link>
+          <MoreDropdown />
+          <ThemeToggle />
+        </nav>
+      </header>
+
+      <main style={{ maxWidth: '800px', margin: '4rem auto', padding: '0 2rem', minHeight: '70vh' }}>
+        <h1 style={{ fontSize: '3rem', marginBottom: '2rem', lineHeight: 1.2 }}>{title}</h1>
+        <article style={{ fontSize: '1.15rem', lineHeight: 1.8, color: 'var(--text-primary)' }}>
+          {children}
+        </article>
+        
+        <div style={{ marginTop: '4rem', padding: '2rem', background: 'var(--bg-secondary)', borderRadius: '12px', textAlign: 'center' }}>
+          <h2 style={{ marginBottom: '1rem' }}>Ready to try it out?</h2>
+          <p style={{ marginBottom: '1.5rem', color: 'var(--text-secondary)' }}>Upload your image to our free AI tool and start editing instantly.</p>
+          <Link href="/" style={{ display: 'inline-block', padding: '12px 24px', background: 'var(--accent-primary)', color: 'white', borderRadius: '8px', textDecoration: 'none', fontWeight: 600 }}>Open the Editor</Link>
+        </div>
+      </main>
+
+      <footer className={styles.footer}>
+        <p>&copy; 2026 photext.ai. All rights reserved.</p>
+      </footer>
+    </div>
+  );
+}

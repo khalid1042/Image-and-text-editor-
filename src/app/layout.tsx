@@ -9,8 +9,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Edit Text in Image Online with AI | Free Image Text Editor",
-  description: "Edit, replace, or remove text from images online with AI. Upload an image, select text, make changes, and download your edited image.",
+  title: "Edit Text in Image Online Free with AI | Image Text Editor",
+  description: "Edit, change, replace, or remove text in images online with AI. Edit text in photos, screenshots, posters, and graphics while matching the original style.",
 };
 
 export default function RootLayout({

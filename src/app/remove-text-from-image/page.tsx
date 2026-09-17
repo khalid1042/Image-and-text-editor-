@@ -1,12 +1,16 @@
-import { EditorLayout } from "@/components/editor/EditorLayout";
-import { Metadata } from "next";
+import type { Metadata } from 'next';
+import { ToolPageClient } from '@/components/home/ToolPageClient';
 
 export const metadata: Metadata = {
-  title: "Remove Text From Image Online | AI Eraser | photext.ai",
-  description: "Seamlessly remove or erase text from images online. Our AI accurately fills the background so it looks like the text was never there.",
+  title: 'Remove Text from Image | photext.ai',
+  description: 'Erase unwanted words, captions, or dates from your images and let our AI reconstruct the background.',
 };
 
-export default function RemoveTextFromImagePage() {
-  // Since we share the EditorLayout, it works as the main app.
-  return <EditorLayout />;
+export default function Page() {
+  return (
+    <ToolPageClient 
+      title="Remove Text from Image" 
+      description="Erase unwanted words, captions, or dates from your images and let our AI reconstruct the background." 
+    />
+  );
 }

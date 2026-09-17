@@ -1,11 +1,16 @@
-import { EditorLayout } from "@/components/editor/EditorLayout";
-import { Metadata } from "next";
+import type { Metadata } from 'next';
+import { ToolPageClient } from '@/components/home/ToolPageClient';
 
 export const metadata: Metadata = {
-  title: "Remove Background from Image Online | Free AI Tool | photext.ai",
-  description: "Instantly remove the background from any photo, graphic, or screenshot using our free in-browser AI. Make backgrounds transparent automatically.",
+  title: 'Remove Background from Image | photext.ai',
+  description: 'Instantly strip away the background from any photo or graphic, leaving a clean transparent canvas.',
 };
 
-export default function RemoveBackgroundPage() {
-  return <EditorLayout />;
+export default function Page() {
+  return (
+    <ToolPageClient 
+      title="Remove Background from Image" 
+      description="Instantly strip away the background from any photo or graphic, leaving a clean transparent canvas." 
+    />
+  );
 }

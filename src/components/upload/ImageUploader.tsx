@@ -40,7 +40,9 @@ export function ImageUploader({ redirectPath = "/edit-text-in-image" }: { redire
     reader.onload = (e) => {
       if (e.target?.result) {
         setOriginalImage(e.target.result as string);
-        router.push(redirectPath);
+        if (redirectPath) {
+          router.push(redirectPath);
+        }
       }
     };
     reader.readAsDataURL(file);

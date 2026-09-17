@@ -141,12 +141,8 @@ export function EditorLayout() {
     useEditorStore.getState().downloadImage();
   };
 
-  useEffect(() => {
-    // If no image is uploaded, redirect back to home
-    if (!originalImage) {
-      router.push("/");
-    }
-  }, [originalImage, router]);
+  // The parent page is now responsible for conditionally rendering EditorLayout vs the Landing State
+  // so we don't need to force a redirect to "/" here.
 
   if (!originalImage) {
     return <div className={styles.loading}>Loading editor...</div>;
@@ -217,7 +213,7 @@ export function EditorLayout() {
               onClick={handleOCR}
               disabled={isDetecting}
             >
-              {isDetecting ? <><Loader2 size={16} className={styles.spinner} /> Detecting...</> : "OCR Detect"}
+              {isDetecting ? <><Loader2 size={16} className={styles.spinner} /> Detecting...</> : "Detect Text with OCR"}
             </button>
           </div>
           
