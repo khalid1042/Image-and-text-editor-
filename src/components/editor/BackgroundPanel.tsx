@@ -32,18 +32,20 @@ export function BackgroundPanel() {
       const seed = Math.floor(Math.random() * 1000000);
       const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(aiPrompt)}?seed=${seed}&width=1024&height=1024&nologo=true`;
       
-      // Fetch the image first to keep the loading spinner active during generation
-      const response = await fetch(url);
-      if (!response.ok) throw new Error("Failed to fetch image");
+      // Use an Image object to preload it. This handles the loading state perfectly 
+      // and is often less aggressively blocked by adblockers than a raw fetch() call.
+      await new Promise((resolve, reject) => {
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        img.onload = () => resolve(img);
+        img.onerror = () => reject(new Error("Network error or blocked by browser"));
+        img.src = url;
+      });
       
-      const blob = await response.blob();
-      const objectUrl = URL.createObjectURL(blob);
-      
-      applyImageBackground(objectUrl);
-    } catch (error) {
-      // Don't use console.error here to avoid triggering Next.js dev overlay on network errors
+      applyImageBackground(url);
+    } catch (error: any) {
       console.warn("Failed to generate AI background:", error);
-      alert("Failed to generate image. Please try again.");
+      alert(`AI Generation Failed: ${error?.message || "Unknown error"}.\n\nTip: If you have an adblocker or strict tracking protection enabled, it might be blocking the AI image service. Try disabling it temporarily!`);
     } finally {
       setIsGeneratingAi(false);
     }
