@@ -39,16 +39,14 @@ export function BackgroundPanel() {
         width: canvas.getWidth() / canvas.getZoom(),
         height: canvas.getHeight() / canvas.getZoom(),
         fill: color,
-        selectable: false,
-        evented: false,
+        selectable: true,
+        evented: true,
         id: "custom-background-rect"
       } as any);
       canvas.add(bgRect);
     } else {
       bgRect.set({
-        fill: color,
-        width: canvas.getWidth() / canvas.getZoom(),
-        height: canvas.getHeight() / canvas.getZoom()
+        fill: color
       });
     }
     
@@ -90,8 +88,8 @@ export function BackgroundPanel() {
       canvas.centerObject(img);
 
       img.set({
-        selectable: false,
-        evented: false,
+        selectable: true,
+        evented: true,
         id: "custom-background-image"
       } as any);
 
