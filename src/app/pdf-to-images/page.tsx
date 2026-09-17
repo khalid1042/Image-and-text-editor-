@@ -51,7 +51,7 @@ export default function PdfToImagesPage() {
         canvas.height = viewport.height;
 
         if (ctx) {
-          await page.render({ canvasContext: ctx, viewport }).promise;
+          await page.render({ canvasContext: ctx, viewport } as any).promise;
           const imgData = canvas.toDataURL('image/jpeg', 0.9);
           // Remove data:image/jpeg;base64, from the string
           const base64Data = imgData.split(',')[1];
@@ -161,7 +161,7 @@ export default function PdfToImagesPage() {
               
               <button 
                 onClick={() => setPdfFile(null)}
-                disabled={is processing}
+                disabled={isProcessing}
                 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '1rem', background: 'var(--bg-primary)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', borderRadius: '8px', cursor: isProcessing ? 'not-allowed' : 'pointer' }}
               >
                 Upload Different PDF
