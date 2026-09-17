@@ -68,7 +68,7 @@ export function BackgroundPanel() {
     const existingBgRect = canvas.getObjects().find((o: any) => o.id === "custom-background-rect");
     if (existingBgRect) canvas.remove(existingBgRect);
 
-    fabric.Image.fromURL(url).then((img) => {
+    fabric.Image.fromURL(url, { crossOrigin: 'anonymous' }).then((img) => {
       const existingBgImg = canvas.getObjects().find((o: any) => o.id === "custom-background-image");
       if (existingBgImg) canvas.remove(existingBgImg);
 

@@ -60,7 +60,7 @@ export function EditorCanvas() {
   useEffect(() => {
     if (!fabricCanvas || !originalImage) return;
 
-    fabric.Image.fromURL(originalImage).then((img) => {
+    fabric.Image.fromURL(originalImage, { crossOrigin: 'anonymous' }).then((img) => {
       // Remove existing main image if any
       const existingImg = fabricCanvas.getObjects().find(o => (o as any).id === "background-image");
       if (existingImg) {

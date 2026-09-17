@@ -6,6 +6,7 @@ import { useEditorStore } from "@/lib/store/editorStore";
 import { useRouter } from "next/navigation";
 import styles from "./EditorLayout.module.css";
 import { Download, Undo, Redo, LayoutPanelLeft, Loader2 } from "lucide-react";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { EditorCanvas } from "@/components/canvas/EditorCanvas";
 import { defaultOCRProvider } from "@/lib/services/ocr/tesseractProvider";
 import { PropertiesPanel } from "@/components/editor/PropertiesPanel";
@@ -161,7 +162,8 @@ export function EditorLayout() {
           <button className={styles.iconBtn} title="Compare"><LayoutPanelLeft size={20} /></button>
         </div>
         
-        <div className={styles.downloadSection}>
+        <div className={styles.topActions} style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <ThemeToggle />
           <button className={styles.downloadBtn} onClick={handleDownload}>
             <Download size={18} />
             <span>Download</span>
