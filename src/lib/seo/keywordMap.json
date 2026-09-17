@@ -1,0 +1,30 @@
+[
+  {
+    "page": "/",
+    "primaryKeyword": "edit text in image",
+    "secondaryKeywords": [
+      "edit text in image online",
+      "AI image text editor",
+      "edit text in photo"
+    ],
+    "intent": "tool"
+  },
+  {
+    "page": "/edit-text-in-image",
+    "primaryKeyword": "edit text in image online",
+    "secondaryKeywords": ["free image text editor", "online text editor for images"],
+    "intent": "tool"
+  },
+  {
+    "page": "/remove-text-from-image",
+    "primaryKeyword": "remove text from image",
+    "secondaryKeywords": ["delete text from photo", "erase text from image"],
+    "intent": "tool"
+  },
+  {
+    "page": "/guides/how-to-edit-text-in-image",
+    "primaryKeyword": "how to edit text in an image",
+    "secondaryKeywords": ["editing text in photos tutorial"],
+    "intent": "informational"
+  }
+]

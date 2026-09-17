@@ -1,69 +1,66 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import Link from "next/link";
+import { ImageUploader } from "@/components/upload/ImageUploader";
+import { SampleImages } from "@/components/upload/SampleImages";
 
 export default function Home() {
   return (
-    <div className={styles.page}>
+    <div className={styles.container}>
+      <header className={styles.header}>
+        <div className={styles.logo}>
+          <span className={styles.logoText}>TextEdit.ai</span>
+        </div>
+        <nav className={styles.nav}>
+          <Link href="/edit-text-in-image">Edit Text</Link>
+          <Link href="/remove-text-from-image">Remove Text</Link>
+          <Link href="/remove-background-from-image">Remove BG</Link>
+          <Link href="/change-image-background">Change BG</Link>
+          <Link href="/guides">Guides</Link>
+        </nav>
+      </header>
+
       <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>
-            To get started, edit the{" "}
-            <code className={styles.code}>page.tsx</code> file.
-          </h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
+        <section className={styles.hero}>
+          <h1 className={styles.h1}>Edit Text in Image Online with AI</h1>
+          <p className={styles.subtitle}>
+            Instantly replace, remove, or change text in any photo, screenshot, or graphic. No design skills required.
           </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+          
+          <div className={styles.uploadArea}>
+            <ImageUploader />
+            <SampleImages />
+          </div>
+        </section>
+
+        <section className={styles.content}>
+          <h2 className={styles.h2}>Edit Any Text in an Image in Seconds</h2>
+          <p>Whether you need to change a price tag, translate a sign, or fix a typo in a screenshot, our AI understands the text and restores the background seamlessly.</p>
+          
+          <div className={styles.features}>
+            <div className={styles.featureCard}>
+              <h3>Upload Your Image</h3>
+              <p>Drag and drop any JPG, PNG, or WEBP file.</p>
+            </div>
+            <div className={styles.featureCard}>
+              <h3>Select the Text</h3>
+              <p>Our AI automatically detects text regions. Just click what you want to edit.</p>
+            </div>
+            <div className={styles.featureCard}>
+              <h3>Change or Replace</h3>
+              <p>Type your new text. The AI matches the font and restores the background.</p>
+            </div>
+            <div className={styles.featureCard}>
+              <h3>Download</h3>
+              <p>Export your high-quality edited image instantly.</p>
+            </div>
+          </div>
+        </section>
       </main>
+
+      <footer className={styles.footer}>
+        <p>&copy; 2026 TextEdit.ai. All rights reserved.</p>
+      </footer>
     </div>
   );
 }
