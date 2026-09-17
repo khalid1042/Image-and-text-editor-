@@ -11,9 +11,12 @@
   "dependencies": {
     "@imgly/background-removal": "^1.7.0",
     "fabric": "^7.4.0",
+    "jspdf": "^4.2.1",
+    "jszip": "^3.10.2",
     "lucide-react": "^1.46.0",
     "next": "16.3.5",
     "next-themes": "^0.4.6",
+    "pdfjs-dist": "^6.3.289",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "tesseract.js": "^7.0.0",

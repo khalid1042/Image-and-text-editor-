@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import styles from '../page.module.css';
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { MoreDropdown } from "@/components/ui/MoreDropdown";
 
 export const metadata = {
   title: 'Guides & Tutorials | photext.ai',
@@ -19,6 +20,8 @@ export default function GuidesPage() {
           <Link href="/edit-text-in-image">Text Editor</Link>
           <Link href="/change-image-background">Background Changer</Link>
           <Link href="/guides" style={{ color: 'var(--accent-primary)' }}>Guides</Link>
+          <Link href="/identify-fonts">Identify Fonts</Link>
+          <MoreDropdown />
           <ThemeToggle />
         </nav>
       </header>

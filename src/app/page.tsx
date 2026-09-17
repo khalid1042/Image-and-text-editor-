@@ -2,6 +2,7 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import Link from "next/link";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { MoreDropdown } from "@/components/ui/MoreDropdown";
 import { ImageUploader } from "@/components/upload/ImageUploader";
 import { SampleImages } from "@/components/upload/SampleImages";
 
@@ -18,6 +19,8 @@ export default function Home() {
           <Link href="/remove-background-from-image">Remove BG</Link>
           <Link href="/change-image-background">Background Changer</Link>
           <Link href="/guides">Guides</Link>
+          <Link href="/identify-fonts">Identify Fonts</Link>
+          <MoreDropdown />
           <ThemeToggle />
         </nav>
       </header>

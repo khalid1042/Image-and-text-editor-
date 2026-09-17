@@ -1,0 +1,35 @@
+import React from 'react';
+import Link from 'next/link';
+import { ThemeToggle } from '@/components/ui/ThemeToggle';
+import { MoreDropdown } from '@/components/ui/MoreDropdown';
+import styles from '@/app/page.module.css';
+
+export function PlaceholderPage({ title }: { title: string }) {
+  return (
+    <div className={styles.container}>
+      <header className={styles.header}>
+        <div className={styles.logo}>
+          <Link href="/"><span className={styles.logoText}>photext.ai</span></Link>
+        </div>
+        <nav className={styles.nav}>
+          <Link href="/change-image-background">Background Changer</Link>
+          <Link href="/guides">Guides</Link>
+          <Link href="/identify-fonts">Identify Fonts</Link>
+          <MoreDropdown />
+          <ThemeToggle />
+        </nav>
+      </header>
+      
+      <main className={styles.main}>
+        <section className={styles.hero}>
+          <h1 className={styles.h1}>{title}</h1>
+          <p className={styles.subtitle}>This feature is currently under development. Check back soon!</p>
+        </section>
+      </main>
+      
+      <footer className={styles.footer}>
+        <p>&copy; {new Date().getFullYear()} photext.ai. All rights reserved.</p>
+      </footer>
+    </div>
+  );
+}

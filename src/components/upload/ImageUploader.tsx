@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import styles from "./ImageUploader.module.css";
 import { UploadCloud } from "lucide-react";
 
-export function ImageUploader() {
+export function ImageUploader({ redirectPath = "/edit-text-in-image" }: { redirectPath?: string }) {
   const router = useRouter();
   const setOriginalImage = useEditorStore((state) => state.setOriginalImage);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -40,7 +40,7 @@ export function ImageUploader() {
     reader.onload = (e) => {
       if (e.target?.result) {
         setOriginalImage(e.target.result as string);
-        router.push("/edit-text-in-image"); // PRD SEO route
+        router.push(redirectPath);
       }
     };
     reader.readAsDataURL(file);
