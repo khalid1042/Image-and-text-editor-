@@ -63,7 +63,10 @@ export default function PdfToImagesPage() {
       const a = document.createElement('a');
       a.href = URL.createObjectURL(zipBlob);
       a.download = `${pdfFile.name.replace('.pdf', '')}-images.zip`;
+      document.body.appendChild(a);
       a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(a.href);
 
     } catch (error) {
       console.error("PDF extraction failed", error);

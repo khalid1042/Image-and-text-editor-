@@ -39,7 +39,9 @@ export default function PhotoScannerPage() {
     const a = document.createElement('a');
     a.href = dataUrl;
     a.download = `scanned-document-${Date.now()}.jpg`;
+    document.body.appendChild(a);
     a.click();
+    document.body.removeChild(a);
   };
 
   return (
