@@ -19,7 +19,9 @@ export function EditorLayout() {
     setDetectedTexts, isDetecting, setIsDetecting, 
     isRemovingBg, setIsRemovingBg,
     activeTool, setActiveTool,
-    canvas
+    canvas,
+    undo, redo, history, historyIndex,
+    panelsVisible, setPanelsVisible
   } = useEditorStore();
 
   const handleOCR = async () => {
@@ -156,10 +158,33 @@ export function EditorLayout() {
         </div>
         
         <div className={styles.topActions}>
-          <button className={styles.iconBtn} title="Undo"><Undo size={20} /></button>
-          <button className={styles.iconBtn} title="Redo"><Redo size={20} /></button>
+          <button 
+            className={styles.iconBtn} 
+            title="Undo" 
+            onClick={undo}
+            disabled={historyIndex <= 0}
+            style={{ opacity: historyIndex <= 0 ? 0.5 : 1, cursor: historyIndex <= 0 ? 'not-allowed' : 'pointer' }}
+          >
+            <Undo size={20} />
+          </button>
+          <button 
+            className={styles.iconBtn} 
+            title="Redo" 
+            onClick={redo}
+            disabled={historyIndex >= history.length - 1 || history.length === 0}
+            style={{ opacity: (historyIndex >= history.length - 1 || history.length === 0) ? 0.5 : 1, cursor: (historyIndex >= history.length - 1 || history.length === 0) ? 'not-allowed' : 'pointer' }}
+          >
+            <Redo size={20} />
+          </button>
           <div className={styles.divider}></div>
-          <button className={styles.iconBtn} title="Compare"><LayoutPanelLeft size={20} /></button>
+          <button 
+            className={styles.iconBtn} 
+            title="Toggle Panels"
+            onClick={() => setPanelsVisible(!panelsVisible)}
+            style={{ backgroundColor: panelsVisible ? 'var(--bg-tertiary)' : 'transparent' }}
+          >
+            <LayoutPanelLeft size={20} />
+          </button>
         </div>
         
         <div className={styles.topActions} style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
@@ -175,8 +200,9 @@ export function EditorLayout() {
       <div className={styles.workspace}>
         
         {/* Left Panel - Tools */}
-        <aside className={styles.leftPanel}>
-          <h3 className={styles.panelTitle}>Tools</h3>
+        {panelsVisible && (
+          <aside className={styles.leftPanel}>
+            <h3 className={styles.panelTitle}>Tools</h3>
           <div className={styles.toolList}>
             <button className={`${styles.toolBtn} ${styles.active}`}>Select</button>
             <button className={styles.toolBtn} onClick={handleReplaceText}>Replace Text</button>
@@ -204,6 +230,7 @@ export function EditorLayout() {
             <button className={styles.toolBtn} onClick={handleAddBackground}>Change BG</button>
           </div>
         </aside>
+        )}
 
         {/* Center - Canvas */}
         <main className={styles.canvasArea}>
@@ -219,10 +246,12 @@ export function EditorLayout() {
         </main>
 
         {/* Right Panel - Properties */}
-        <aside className={styles.rightPanel}>
-          <h3 className={styles.panelTitle}>Properties</h3>
-          <PropertiesPanel />
-        </aside>
+        {panelsVisible && (
+          <aside className={styles.rightPanel}>
+            <h3 className={styles.panelTitle}>Properties</h3>
+            <PropertiesPanel />
+          </aside>
+        )}
         
       </div>
     </div>

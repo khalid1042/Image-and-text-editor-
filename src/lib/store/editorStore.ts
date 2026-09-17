@@ -30,6 +30,16 @@ export interface EditorState {
   setBackgroundColor: (color: string | null) => void;
 
   downloadImage: () => void;
+
+  history: string[];
+  historyIndex: number;
+  isHistoryUpdating: boolean;
+  saveHistoryState: () => void;
+  undo: () => void;
+  redo: () => void;
+  
+  panelsVisible: boolean;
+  setPanelsVisible: (visible: boolean) => void;
 }
 
 export const useEditorStore = create<EditorState>((set, get) => ({
@@ -78,8 +88,78 @@ export const useEditorStore = create<EditorState>((set, get) => ({
     const link = document.createElement('a');
     link.download = `edited-image-${Date.now()}.png`;
     link.href = dataURL;
-    document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  },
+
+  history: [],
+  historyIndex: -1,
+  isHistoryUpdating: false,
+  
+  panelsVisible: true,
+  setPanelsVisible: (visible) => set({ panelsVisible: visible }),
+
+  saveHistoryState: () => {
+    clearTimeout((window as any).historyTimeout);
+    (window as any).historyTimeout = setTimeout(() => {
+      const { canvas, history, historyIndex, isHistoryUpdating } = get();
+      if (!canvas || isHistoryUpdating) return;
+      
+      // Save state with custom properties
+      const state = JSON.stringify(canvas.toJSON(['id', 'textData', 'selectable', 'evented', 'crossOrigin', 'name']));
+      
+      // If the state is the same as the current one, ignore
+      if (historyIndex >= 0 && history[historyIndex] === state) return;
+
+      // Remove any future history if we are branched off
+      const newHistory = history.slice(0, historyIndex + 1);
+      newHistory.push(state);
+      
+      // Limit history to 50 states to prevent memory bloat
+      if (newHistory.length > 50) {
+        newHistory.shift();
+      }
+      
+      set({
+        history: newHistory,
+        historyIndex: newHistory.length - 1
+      });
+    }, 150);
+  },
+
+  undo: () => {
+    const { canvas, history, historyIndex } = get();
+    if (!canvas || historyIndex <= 0) return; // Cannot undo past the first state
+    
+    const newIndex = historyIndex - 1;
+    const state = history[newIndex];
+    
+    set({ isHistoryUpdating: true });
+    
+    canvas.loadFromJSON(JSON.parse(state)).then(() => {
+      canvas.renderAll();
+      set({ historyIndex: newIndex, isHistoryUpdating: false });
+    }).catch((err: any) => {
+      console.error("Undo failed", err);
+      set({ isHistoryUpdating: false });
+    });
+  },
+
+  redo: () => {
+    const { canvas, history, historyIndex } = get();
+    if (!canvas || historyIndex >= history.length - 1) return;
+    
+    const newIndex = historyIndex + 1;
+    const state = history[newIndex];
+    
+    set({ isHistoryUpdating: true });
+    
+    canvas.loadFromJSON(JSON.parse(state)).then(() => {
+      canvas.renderAll();
+      set({ historyIndex: newIndex, isHistoryUpdating: false });
+    }).catch((err: any) => {
+      console.error("Redo failed", err);
+      set({ isHistoryUpdating: false });
+    });
   }
 }));

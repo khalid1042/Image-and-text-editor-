@@ -56,15 +56,27 @@ export function EditorCanvas() {
       }
     };
 
+    const saveState = (e?: any) => {
+      // Ignore bbox bounding boxes added by OCR
+      if (e?.target && (e.target as any).id?.startsWith('bbox-')) return;
+      useEditorStore.getState().saveHistoryState();
+    };
+
     canvas.on("selection:created", handleSelection);
     canvas.on("selection:updated", handleSelection);
     canvas.on("selection:cleared", handleSelection);
+    canvas.on("object:modified", saveState);
+    canvas.on("object:added", saveState);
+    canvas.on("object:removed", saveState);
 
     return () => {
       window.removeEventListener("resize", handleResize);
       canvas.off("selection:created", handleSelection);
       canvas.off("selection:updated", handleSelection);
       canvas.off("selection:cleared", handleSelection);
+      canvas.off("object:modified", saveState);
+      canvas.off("object:added", saveState);
+      canvas.off("object:removed", saveState);
       canvas.dispose();
     };
   }, []);
@@ -135,6 +147,14 @@ export function EditorCanvas() {
       }
       
       fabricCanvas.renderAll();
+      
+      // Save initial state if history is empty
+      if (useEditorStore.getState().history.length === 0) {
+        // Use timeout to ensure all objects are added before saving
+        setTimeout(() => {
+          useEditorStore.getState().saveHistoryState();
+        }, 100);
+      }
     }).catch(err => {
       console.error("Failed to load image into canvas:", err);
     });
