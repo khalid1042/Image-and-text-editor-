@@ -29,7 +29,7 @@ export interface EditorState {
   backgroundColor: string | null;
   setBackgroundColor: (color: string | null) => void;
 
-  downloadImage: (format: 'png' | 'jpeg' | 'webp' = 'png', quality: number = 1) => void;
+  downloadImage: (format?: 'png' | 'jpeg' | 'webp', quality?: number) => void;
 
   history: string[];
   historyIndex: number;
