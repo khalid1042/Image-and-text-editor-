@@ -51,8 +51,8 @@ export function EditorLayout() {
     if (!canvas) return;
     setActiveTool('text');
     const textLayer = new fabric.IText("New Text", {
-      left: (canvas.getWidth() / 2) - 50,
-      top: (canvas.getHeight() / 2) - 20,
+      left: (canvas.width! / 2) - 50,
+      top: (canvas.height! / 2) - 20,
       fontFamily: 'Inter',
       fontSize: 40,
       fill: '#0f172a',

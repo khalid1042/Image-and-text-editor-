@@ -64,8 +64,8 @@ export function BackgroundPanel() {
       bgRect = new fabric.Rect({
         left: 0,
         top: 0,
-        width: canvas.getWidth() / canvas.getZoom(),
-        height: canvas.getHeight() / canvas.getZoom(),
+        width: canvas.width! / canvas.getZoom(),
+        height: canvas.height! / canvas.getZoom(),
         fill: color,
         selectable: true,
         evented: true,
@@ -94,8 +94,8 @@ export function BackgroundPanel() {
       if (existingBgImg) canvas.remove(existingBgImg);
 
       // Scale to cover canvas (using original unzoomed canvas size to match internal coordinates)
-      const internalWidth = canvas.getWidth() / canvas.getZoom();
-      const internalHeight = canvas.getHeight() / canvas.getZoom();
+      const internalWidth = canvas.width! / canvas.getZoom();
+      const internalHeight = canvas.height! / canvas.getZoom();
       
       const canvasRatio = internalWidth / internalHeight;
       const imgRatio = img.width! / img.height!;
