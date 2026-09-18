@@ -107,7 +107,7 @@ export function BackgroundPanel() {
         scale = internalHeight / img.height!;
       }
 
-      img.scale(scale);
+      img.set({ scaleX: scale, scaleY: scale });
       canvas.centerObject(img);
 
       img.set({
