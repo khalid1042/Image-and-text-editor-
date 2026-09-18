@@ -1,19 +1,30 @@
 import type { Metadata } from 'next';
 import { GuideLayout } from '@/components/home/GuideLayout';
+import Image from 'next/image';
 
 export const metadata: Metadata = {
-  title: 'How to Edit Text in an Image Online (Free AI Tool)',
-  description: 'Learn how to easily edit, change, or replace text inside any JPG or PNG image online. Our AI automatically matches the font and restores the background.',
+  title: 'How to Edit Text in an Image Online Free (AI Editor)',
+  description: 'Learn how to easily change, replace, or edit text in any picture, screenshot, or graphic online. Our AI perfectly matches the original font style and background.',
 };
 
 export default function GuidePage() {
   return (
-    <GuideLayout title="How to Edit Text in an Image (Without Photoshop)">
-      <p style={{ marginBottom: '1.5rem' }}>Have you ever finalized a beautiful poster, flyer, or social media graphic, only to realize there is a glaring typo? If you no longer have the original project file, fixing that mistake can feel impossible.</p>
+    <GuideLayout title="How to Edit Text in an Image Without Changing the Background">
+      <p style={{ marginBottom: '1.5rem' }}>We've all been there: you have a stunning promotional poster, a funny meme, or an important screenshot, but there's a typo. Or perhaps the date on an event graphic needs to be updated. Historically, fixing text inside a flattened image (like a JPEG or PNG) was a nightmare. You'd have to use Photoshop to meticulously clone the background, guess the original font, and try to blend the new text perfectly.</p>
       
-      <p style={{ marginBottom: '1.5rem' }}>Trying to paint over the old text usually leaves an ugly, obvious smudge. But you don't need to be a professional graphic designer or own expensive software to fix it. In this guide, you will learn how to easily replace, change, or edit text in any image using AI—while keeping the original background perfectly intact.</p>
+      <p style={{ marginBottom: '1.5rem' }}>With the photext.ai editor, you can seamlessly edit text in any picture directly in your browser. Our AI-powered tool doesn't just slap new text on top—it magically removes the old text, repaints the original background, and renders your new words in a matching font style.</p>
 
-      <h2 style={{ fontSize: '2rem', margin: '2rem 0 1rem' }}>The Challenge of Editing Flattened Images</h2>
+      <div style={{ margin: '2rem 0', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-md)' }}>
+        <Image 
+          src="/images/edit_text_before_after.png" 
+          alt="Before and after comparison of a promotional poster showing a typo 'Sael' corrected to 'Sale' seamlessly using AI" 
+          width={800} 
+          height={400} 
+          layout="responsive" 
+        />
+      </div>
+
+      <h2 style={{ fontSize: '2rem', margin: '2rem 0 1rem' }}>How It Works: OCR + AI Inpainting</h2>
       <p style={{ marginBottom: '1.5rem' }}>When you save a design as a JPG, PNG, or WebP file, the image becomes "flattened." The text is no longer a separate layer; it becomes baked into the pixels of the background.</p>
       
       <p style={{ marginBottom: '1.5rem' }}>Traditional image editors force you to handle this manually. You have to use a clone stamp tool to painstakingly rebuild the background behind the text, guess the original font, and manually type the new text over the patched area. It is incredibly time-consuming and rarely looks perfect.</p>

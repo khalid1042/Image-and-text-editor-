@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { GuideLayout } from '@/components/home/GuideLayout';
 
+import Image from 'next/image';
+
 export const metadata: Metadata = {
   title: 'How to Remove Text from an Image Online (Free AI Eraser)',
   description: 'Learn how to easily erase words, dates, or watermarks from any picture. Our AI removes the text and magically restores the background behind it.',
@@ -12,6 +14,16 @@ export default function GuidePage() {
       <p style={{ marginBottom: '1.5rem' }}>We've all been there: you find the perfect stock photo, meme template, or product image, but there is an annoying string of text or a date stamp ruining the shot. If you try to simply crop it out, you ruin the composition of the photo.</p>
       
       <p style={{ marginBottom: '1.5rem' }}>Using the eraser tool in a basic photo app just leaves a giant white hole or a blurry smudge. In this guide, you will learn how to completely erase text from any image using AI, which magically rebuilds the missing background behind the words so nobody will ever know text was there in the first place.</p>
+
+      <div style={{ margin: '2rem 0', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-md)' }}>
+        <Image 
+          src="/images/remove_text_before_after.png" 
+          alt="Before and after comparison showing text completely removed from a landscape photo using AI inpainting" 
+          width={800} 
+          height={400} 
+          layout="responsive" 
+        />
+      </div>
 
       <h2 style={{ fontSize: '2rem', margin: '2rem 0 1rem' }}>Why Removing Text is Usually Difficult</h2>
       <p style={{ marginBottom: '1.5rem' }}>Text in a JPEG or PNG isn't a sticker you can just peel off. The letters have permanently replaced the pixels of the background. To remove the text, you don't just need an "eraser"—you need a tool that can guess what the background <i>would</i> look like if the text wasn't there, and paint those missing pixels back in.</p>

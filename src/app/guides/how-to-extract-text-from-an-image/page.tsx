@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { GuideLayout } from '@/components/home/GuideLayout';
 
+import Image from 'next/image';
+
 export const metadata: Metadata = {
   title: 'How to Extract Text from an Image Online (Free OCR)',
   description: 'Learn how to easily copy and extract text from any photo, screenshot, or scanned document using our free AI OCR tool.',
@@ -12,6 +14,16 @@ export default function GuidePage() {
       <p style={{ marginBottom: '1.5rem' }}>We've all experienced the frustration of receiving a photo of a document, a screenshot of an address, or a picture of a Wi-Fi password. You can't just highlight and copy the text; you have to painstakingly retype every single letter manually.</p>
       
       <p style={{ marginBottom: '1.5rem' }}>Fortunately, you don't need to do that anymore. With modern Optical Character Recognition (OCR) technology, you can instantly extract and copy the text from any image directly in your browser. In this guide, we'll show you how to do it in seconds.</p>
+
+      <div style={{ margin: '2rem 0', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-md)' }}>
+        <Image 
+          src="/images/extract_text_ocr.png" 
+          alt="Glowing blue bounding boxes identifying and extracting printed text from a paper document using Optical Character Recognition" 
+          width={800} 
+          height={400} 
+          layout="responsive" 
+        />
+      </div>
 
       <h2 style={{ fontSize: '2rem', margin: '2rem 0 1rem' }}>What is Image-to-Text Extraction?</h2>
       <p style={{ marginBottom: '1.5rem' }}>Image-to-text extraction relies on a technology called OCR (Optical Character Recognition). When you upload an image, the OCR engine analyzes the pixels, identifies the shapes of letters and numbers, and converts those shapes back into raw, editable digital text.</p>
