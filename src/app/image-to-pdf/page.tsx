@@ -54,7 +54,7 @@ export default function ImageToPdfPage() {
       <header className={styles.header}>
         <div className={styles.logo}>
           <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
-            <img src="/logo.png" alt="photext.ai logo" style={{ height: '32px', width: 'auto' }} />
+            <img src="/logo.png" alt="photext.ai logo" style={{ height: '48px', width: 'auto' }} />
           </Link>
         </div>
         <nav className={styles.nav}>

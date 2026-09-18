@@ -12,7 +12,7 @@ export function GuideLayout({ title, children }: { title: string, children: Reac
       <header className={styles.header}>
         <div className={styles.logo}>
           <Link href="/" className={styles.logoText} style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
-            <img src="/logo.png" alt="photext.ai logo" style={{ height: '32px', width: 'auto' }} />
+            <img src="/logo.png" alt="photext.ai logo" style={{ height: '48px', width: 'auto' }} />
           </Link>
         </div>
         <nav className={styles.nav}>
