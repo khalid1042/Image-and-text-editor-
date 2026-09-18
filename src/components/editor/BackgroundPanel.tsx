@@ -32,20 +32,28 @@ export function BackgroundPanel() {
       const seed = Math.floor(Math.random() * 1000000);
       const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(aiPrompt)}?seed=${seed}&width=1024&height=1024&nologo=true`;
       
-      // Use an Image object to preload it. This handles the loading state perfectly 
-      // and is often less aggressively blocked by adblockers than a raw fetch() call.
-      await new Promise((resolve, reject) => {
+      const imgObj = await new Promise<HTMLImageElement>((resolve, reject) => {
         const img = new Image();
         img.crossOrigin = "anonymous";
-        img.onload = () => resolve(img);
-        img.onerror = () => reject(new Error("Network error or blocked by browser"));
+        
+        // Timeout after 30 seconds
+        const timeout = setTimeout(() => reject(new Error("AI image generation timed out after 30 seconds. Please try again.")), 30000);
+        
+        img.onload = () => {
+          clearTimeout(timeout);
+          resolve(img);
+        };
+        img.onerror = () => {
+          clearTimeout(timeout);
+          reject(new Error("Network error or image service is currently unavailable."));
+        };
         img.src = url;
       });
       
-      applyImageBackground(url);
+      applyImageBackground(imgObj);
     } catch (error: any) {
       console.warn("Failed to generate AI background:", error);
-      alert(`AI Generation Failed: ${error?.message || "Unknown error"}.\n\nTip: If you have an adblocker or strict tracking protection enabled, it might be blocking the AI image service. Try disabling it temporarily!`);
+      alert(`AI Generation Failed: ${error?.message || "Unknown error"}.\n\nTry again in a few moments.`);
     } finally {
       setIsGeneratingAi(false);
     }
@@ -82,14 +90,14 @@ export function BackgroundPanel() {
     canvas.renderAll();
   };
 
-  const applyImageBackground = (url: string) => {
+  const applyImageBackground = (source: string | HTMLImageElement) => {
     if (!canvas) return;
     
     // Remove existing color background if any
     const existingBgRect = canvas.getObjects().find((o: any) => o.id === "custom-background-rect");
     if (existingBgRect) canvas.remove(existingBgRect);
 
-    fabric.Image.fromURL(url, { crossOrigin: 'anonymous' }).then((img) => {
+    const processFabricImage = (img: any) => {
       const existingBgImg = canvas.getObjects().find((o: any) => o.id === "custom-background-image");
       if (existingBgImg) canvas.remove(existingBgImg);
 
@@ -119,9 +127,24 @@ export function BackgroundPanel() {
       canvas.add(img);
       canvas.sendObjectToBack(img);
       canvas.renderAll();
-    }).catch(err => {
-      console.error("Failed to load background image:", err);
-    });
+    };
+
+    if (typeof source === 'string') {
+      fabric.Image.fromURL(source, { crossOrigin: 'anonymous' })
+        .then(processFabricImage)
+        .catch(err => {
+          console.error("Failed to load background image:", err);
+          alert("Failed to load background image. It may be blocked or invalid.");
+        });
+    } else {
+      try {
+        const img = new fabric.Image(source);
+        processFabricImage(img);
+      } catch (err) {
+        console.error("Failed to process fabric image from HTMLImageElement:", err);
+        alert("Failed to process the AI generated image. Please try again.");
+      }
+    }
   };
 
   const handleFileUpload = (file: File) => {
