@@ -95,7 +95,7 @@ export default function PdfToImagesPage() {
         </nav>
       </header>
 
-      <main style={{ flex: 1, padding: '2rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <main className={styles.toolMain}>
         <h1 className={styles.h1} style={{ marginBottom: '0.5rem' }}>PDF to Images</h1>
         <p className={styles.subtitle} style={{ marginBottom: '2rem' }}>Extract all pages from a PDF document into high-quality JPG images.</p>
 

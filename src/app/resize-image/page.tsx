@@ -85,7 +85,7 @@ export default function ResizeImagePage() {
         </nav>
       </header>
 
-      <main style={{ flex: 1, padding: '2rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <main className={styles.toolMain}>
         <h1 className={styles.h1} style={{ marginBottom: '0.5rem' }}>Resize Image</h1>
         <p className={styles.subtitle} style={{ marginBottom: '2rem' }}>Change the dimensions of your image quickly and easily.</p>
 

@@ -71,7 +71,7 @@ export default function CopyTextFromImagePage() {
         </nav>
       </header>
 
-      <main style={{ flex: 1, padding: '2rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <main className={styles.toolMain}>
         <h1 className={styles.h1} style={{ marginBottom: '0.5rem' }}>Copy Text from Image</h1>
         <p className={styles.subtitle} style={{ marginBottom: '2rem' }}>Instantly extract and copy text from any image or screenshot.</p>
 

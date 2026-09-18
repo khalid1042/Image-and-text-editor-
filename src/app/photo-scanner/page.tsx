@@ -62,7 +62,7 @@ export default function PhotoScannerPage() {
         </nav>
       </header>
 
-      <main style={{ flex: 1, padding: '2rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <main className={styles.toolMain}>
         <h1 className={styles.h1} style={{ marginBottom: '0.5rem' }}>Photo Scanner</h1>
         <p className={styles.subtitle} style={{ marginBottom: '2rem' }}>Turn a photo of a document into a clean, flat scan.</p>
 
