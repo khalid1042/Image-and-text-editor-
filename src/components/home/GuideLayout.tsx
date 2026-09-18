@@ -11,7 +11,9 @@ export function GuideLayout({ title, children }: { title: string, children: Reac
     <div className={styles.container}>
       <header className={styles.header}>
         <div className={styles.logo}>
-          <Link href="/" className={styles.logoText} style={{ textDecoration: 'none' }}>photext.ai</Link>
+          <Link href="/" className={styles.logoText} style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
+            <img src="/logo.png" alt="photext.ai logo" style={{ height: '32px', width: 'auto' }} />
+          </Link>
         </div>
         <nav className={styles.nav}>
           <Link href="/edit-text-in-image">Edit Text</Link>

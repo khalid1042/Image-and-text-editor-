@@ -12,7 +12,7 @@ export default function Home() {
     <div className={styles.container}>
       <header className={styles.header}>
         <div className={styles.logo}>
-          <span className={styles.logoText}>photext.ai</span>
+          <img src="/logo.png" alt="photext.ai logo" style={{ height: '32px', width: 'auto' }} />
         </div>
         <nav className={styles.nav}>
           <Link href="/edit-text-in-image">Edit Text</Link>

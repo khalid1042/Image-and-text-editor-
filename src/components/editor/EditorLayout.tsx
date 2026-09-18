@@ -179,7 +179,7 @@ export function EditorLayout() {
       {/* Top Bar */}
       <header className={styles.topbar}>
         <div className={styles.logo} onClick={() => router.push("/")}>
-          <span>photext.ai</span>
+          <img src="/logo.png" alt="photext.ai logo" style={{ height: '24px', width: 'auto' }} />
         </div>
         
         <div className={styles.topActions}>

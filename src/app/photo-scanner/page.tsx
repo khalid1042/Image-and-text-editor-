@@ -48,7 +48,9 @@ export default function PhotoScannerPage() {
     <div className={styles.container} style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <header className={styles.header}>
         <div className={styles.logo}>
-          <Link href="/"><span className={styles.logoText}>photext.ai</span></Link>
+          <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+            <img src="/logo.png" alt="photext.ai logo" style={{ height: '32px', width: 'auto' }} />
+          </Link>
         </div>
         <nav className={styles.nav}>
           <Link href="/change-image-background">Background Changer</Link>
