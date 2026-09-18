@@ -14,7 +14,7 @@ export default function GuidePage() {
       
       <p style={{ marginBottom: '1.5rem' }}>With the photext.ai editor, you can seamlessly edit text in any picture directly in your browser. Our AI-powered tool doesn't just slap new text on top—it magically removes the old text, repaints the original background, and renders your new words in a matching font style.</p>
 
-      <div style={{ margin: '2rem 0', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-md)' }}>
+      <div style={{ margin: '2rem auto', maxWidth: '600px', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-md)' }}>
         <Image 
           src="/images/edit_text_before_after.png" 
           alt="Before and after comparison of a promotional poster showing a typo 'Sael' corrected to 'Sale' seamlessly using AI" 

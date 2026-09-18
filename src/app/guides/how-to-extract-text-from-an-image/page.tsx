@@ -15,7 +15,7 @@ export default function GuidePage() {
       
       <p style={{ marginBottom: '1.5rem' }}>Fortunately, you don't need to do that anymore. With modern Optical Character Recognition (OCR) technology, you can instantly extract and copy the text from any image directly in your browser. In this guide, we'll show you how to do it in seconds.</p>
 
-      <div style={{ margin: '2rem 0', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-md)' }}>
+      <div style={{ margin: '2rem auto', maxWidth: '600px', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-md)' }}>
         <Image 
           src="/images/extract_text_ocr.png" 
           alt="Glowing blue bounding boxes identifying and extracting printed text from a paper document using Optical Character Recognition" 

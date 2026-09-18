@@ -15,7 +15,7 @@ export default function GuidePage() {
       
       <p style={{ marginBottom: '1.5rem' }}>Using the eraser tool in a basic photo app just leaves a giant white hole or a blurry smudge. In this guide, you will learn how to completely erase text from any image using AI, which magically rebuilds the missing background behind the words so nobody will ever know text was there in the first place.</p>
 
-      <div style={{ margin: '2rem 0', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-md)' }}>
+      <div style={{ margin: '2rem auto', maxWidth: '600px', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-md)' }}>
         <Image 
           src="/images/remove_text_before_after.png" 
           alt="Before and after comparison showing text completely removed from a landscape photo using AI inpainting" 

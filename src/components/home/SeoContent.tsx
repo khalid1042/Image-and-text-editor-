@@ -50,7 +50,7 @@ export function SeoContent() {
         <p style={{ marginBottom: '1.5rem', lineHeight: 1.6 }}>Sometimes the text you need to change is already part of a photo.</p>
         <p style={{ marginBottom: '1.5rem', lineHeight: 1.6 }}>You may want to update a visible label, correct a spelling mistake, change a short message, or replace text on a promotional image.</p>
         
-        <div style={{ margin: '2rem 0', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-md)' }}>
+        <div style={{ margin: '2rem auto', maxWidth: '600px', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-md)' }}>
           <img src="/images/edit_text_before_after.png" alt="Before and after comparison of editing text in an image" style={{ width: '100%', height: 'auto', display: 'block' }} />
         </div>
 
@@ -88,7 +88,7 @@ export function SeoContent() {
         <p style={{ marginBottom: '1.5rem', lineHeight: 1.6 }}>You can also remove unwanted text from an image.</p>
         <p style={{ marginBottom: '1.5rem', lineHeight: 1.6 }}>Select the text area you want to remove and let the editor reconstruct the area behind it.</p>
         
-        <div style={{ margin: '2rem 0', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-md)' }}>
+        <div style={{ margin: '2rem auto', maxWidth: '600px', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-md)' }}>
           <img src="/images/remove_text_before_after.png" alt="Before and after of removing text from an image using AI" style={{ width: '100%', height: 'auto', display: 'block' }} />
         </div>
 
@@ -108,7 +108,7 @@ export function SeoContent() {
         <p style={{ marginBottom: '1.5rem', lineHeight: 1.6 }}>The editor uses text detection to identify words inside an uploaded image.</p>
         <p style={{ marginBottom: '1.5rem', lineHeight: 1.6 }}>This makes it easier to find the text you want to edit instead of manually drawing around every letter.</p>
         
-        <div style={{ margin: '2rem 0', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-md)' }}>
+        <div style={{ margin: '2rem auto', maxWidth: '600px', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-md)' }}>
           <img src="/images/extract_text_ocr.png" alt="Visual representation of OCR text extraction from a document" style={{ width: '100%', height: 'auto', display: 'block' }} />
         </div>
 
