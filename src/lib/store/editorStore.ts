@@ -29,7 +29,7 @@ export interface EditorState {
   backgroundColor: string | null;
   setBackgroundColor: (color: string | null) => void;
 
-  downloadImage: () => void;
+  downloadImage: (format: 'png' | 'jpeg' | 'webp' = 'png', quality: number = 1) => void;
 
   history: string[];
   historyIndex: number;
@@ -70,7 +70,7 @@ export const useEditorStore = create<EditorState>((set, get) => ({
   backgroundColor: null,
   setBackgroundColor: (color) => set({ backgroundColor: color }),
 
-  downloadImage: () => {
+  downloadImage: (format = 'png', quality = 1) => {
     const { canvas } = get();
     if (!canvas) return;
     
@@ -80,16 +80,16 @@ export const useEditorStore = create<EditorState>((set, get) => ({
 
     const zoom = canvas.getZoom() || 1;
     const dataURL = canvas.toDataURL({
-      format: 'png',
-      quality: 1,
+      format: format,
+      quality: quality,
       multiplier: 1 / zoom // Export exactly at 1:1 original resolution
     });
 
     const link = document.createElement('a');
-    link.download = `edited-image-${Date.now()}.png`;
+    link.download = `edited-image-${Date.now()}.${format === 'jpeg' ? 'jpg' : format}`;
     link.href = dataURL;
     link.click();
-    document.body.removeChild(link);
+    // No need to append to body for most modern browsers, but if we do, we need to handle it.
   },
 
   history: [],

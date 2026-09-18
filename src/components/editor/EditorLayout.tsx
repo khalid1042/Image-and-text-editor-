@@ -5,7 +5,7 @@ import * as fabric from "fabric";
 import { useEditorStore } from "@/lib/store/editorStore";
 import { useRouter } from "next/navigation";
 import styles from "./EditorLayout.module.css";
-import { Download, Undo, Redo, LayoutPanelLeft, Loader2 } from "lucide-react";
+import { Download, Undo, Redo, LayoutPanelLeft, Loader2, MousePointer2, Type, Sparkles, ScanText, Eraser, Eraser as EraserIcon, Image as ImageIcon, SlidersHorizontal, ChevronDown } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { EditorCanvas } from "@/components/canvas/EditorCanvas";
 import { defaultOCRProvider } from "@/lib/services/ocr/tesseractProvider";
@@ -27,6 +27,8 @@ export function EditorLayout() {
 
   const [isAIModalOpen, setIsAIModalOpen] = React.useState(false);
   const [aiOriginalText, setAiOriginalText] = React.useState("");
+  const [isMobilePropsOpen, setIsMobilePropsOpen] = React.useState(false);
+  const [isDownloadMenuOpen, setIsDownloadMenuOpen] = React.useState(false);
 
   const handleOCR = async () => {
     if (!originalImage) return;
@@ -160,8 +162,9 @@ export function EditorLayout() {
     setActiveTool('background');
   };
 
-  const handleDownload = () => {
-    useEditorStore.getState().downloadImage();
+  const handleDownload = (format: 'png' | 'jpeg' | 'webp' = 'png') => {
+    useEditorStore.getState().downloadImage(format);
+    setIsDownloadMenuOpen(false);
   };
 
   // The parent page is now responsible for conditionally rendering EditorLayout vs the Landing State
@@ -211,10 +214,30 @@ export function EditorLayout() {
         
         <div className={styles.topActions} style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           <ThemeToggle />
-          <button className={styles.downloadBtn} onClick={handleDownload}>
-            <Download size={18} />
-            <span>Download</span>
-          </button>
+          <div className={styles.downloadWrapper}>
+            <button 
+              className={styles.downloadBtn} 
+              onClick={() => setIsDownloadMenuOpen(!isDownloadMenuOpen)}
+            >
+              <Download size={18} />
+              <span>Download</span>
+              <ChevronDown size={16} style={{ marginLeft: '-4px' }} />
+            </button>
+            
+            {isDownloadMenuOpen && (
+              <div className={styles.downloadMenu}>
+                <button className={styles.downloadOption} onClick={() => handleDownload('png')}>
+                  Download PNG
+                </button>
+                <button className={styles.downloadOption} onClick={() => handleDownload('jpeg')}>
+                  Download JPG
+                </button>
+                <button className={styles.downloadOption} onClick={() => handleDownload('webp')}>
+                  Download WEBP
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </header>
 
@@ -225,33 +248,53 @@ export function EditorLayout() {
         {panelsVisible && (
           <aside className={styles.leftPanel}>
             <h3 className={styles.panelTitle}>Tools</h3>
-          <div className={styles.toolList}>
-            <button className={`${styles.toolBtn} ${styles.active}`}>Select</button>
-            <button className={styles.toolBtn} onClick={handleReplaceText}>Replace Text</button>
-            <button className={styles.toolBtn} onClick={handleRemoveText}>Remove Text</button>
-            <button className={styles.toolBtn} onClick={handleAddText}>Add Text</button>
-            <button className={styles.toolBtn} onClick={handleAIEdit}>AI Edit</button>
-            <button 
-              className={styles.toolBtn} 
-              onClick={handleOCR}
-              disabled={isDetecting}
-            >
-              {isDetecting ? <><Loader2 size={16} className={styles.spinner} /> Detecting...</> : "Detect Text with OCR"}
-            </button>
-          </div>
-          
-          <h3 className={styles.panelTitle} style={{ marginTop: '1rem' }}>Background</h3>
-          <div className={styles.toolList}>
-            <button 
-              className={styles.toolBtn} 
-              onClick={handleRemoveBackground}
-              disabled={isRemovingBg}
-            >
-              {isRemovingBg ? <><Loader2 size={16} className={styles.spinner} /> Processing...</> : "Remove BG"}
-            </button>
-            <button className={styles.toolBtn} onClick={handleAddBackground}>Change BG</button>
-          </div>
-        </aside>
+            <div className={styles.toolList}>
+              <button className={`${styles.toolBtn} ${activeTool === 'select' ? styles.active : ''}`} onClick={() => setActiveTool('select')}>
+                <MousePointer2 size={18} />
+                <span>Select</span>
+              </button>
+              <button className={`${styles.toolBtn} ${activeTool === 'text' ? styles.active : ''}`} onClick={handleReplaceText}>
+                <Type size={18} />
+                <span>Replace</span>
+              </button>
+              <button className={styles.toolBtn} onClick={handleRemoveText}>
+                <Eraser size={18} />
+                <span>Remove</span>
+              </button>
+              <button className={styles.toolBtn} onClick={handleAddText}>
+                <Type size={18} />
+                <span>Add Text</span>
+              </button>
+              <button className={styles.toolBtn} onClick={handleAIEdit}>
+                <Sparkles size={18} />
+                <span>AI Edit</span>
+              </button>
+              <button 
+                className={styles.toolBtn} 
+                onClick={handleOCR}
+                disabled={isDetecting}
+              >
+                {isDetecting ? <Loader2 size={18} className={styles.spinner} /> : <ScanText size={18} />}
+                <span>{isDetecting ? "Detecting" : "OCR"}</span>
+              </button>
+            </div>
+            
+            <h3 className={styles.panelTitle} style={{ marginTop: '1rem' }}>Background</h3>
+            <div className={styles.toolList}>
+              <button 
+                className={styles.toolBtn} 
+                onClick={handleRemoveBackground}
+                disabled={isRemovingBg}
+              >
+                {isRemovingBg ? <Loader2 size={18} className={styles.spinner} /> : <EraserIcon size={18} />}
+                <span>{isRemovingBg ? "Processing" : "Remove BG"}</span>
+              </button>
+              <button className={styles.toolBtn} onClick={handleAddBackground}>
+                <ImageIcon size={18} />
+                <span>Change BG</span>
+              </button>
+            </div>
+          </aside>
         )}
 
         {/* Center - Canvas */}
@@ -265,11 +308,21 @@ export function EditorLayout() {
             <span>100%</span>
             <button>+</button>
           </div>
+          
+          {/* Mobile Properties Toggle Button */}
+          {panelsVisible && (
+            <button 
+              className={styles.mobilePropertiesToggle} 
+              onClick={() => setIsMobilePropsOpen(!isMobilePropsOpen)}
+            >
+              <SlidersHorizontal size={20} />
+            </button>
+          )}
         </main>
 
         {/* Right Panel - Properties */}
         {panelsVisible && (
-          <aside className={styles.rightPanel}>
+          <aside className={`${styles.rightPanel} ${isMobilePropsOpen ? styles.open : ''}`}>
             <h3 className={styles.panelTitle}>Properties</h3>
             <PropertiesPanel />
           </aside>
