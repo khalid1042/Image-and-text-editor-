@@ -49,6 +49,11 @@ export function SeoContent() {
         <h2 className={styles.h2} style={{ marginTop: '2.5rem', marginBottom: '1rem', fontSize: '1.75rem' }}>Change Text in Photos</h2>
         <p style={{ marginBottom: '1.5rem', lineHeight: 1.6 }}>Sometimes the text you need to change is already part of a photo.</p>
         <p style={{ marginBottom: '1.5rem', lineHeight: 1.6 }}>You may want to update a visible label, correct a spelling mistake, change a short message, or replace text on a promotional image.</p>
+        
+        <div style={{ margin: '2rem 0', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-md)' }}>
+          <img src="/images/edit_text_before_after.png" alt="Before and after comparison of editing text in an image" style={{ width: '100%', height: 'auto', display: 'block' }} />
+        </div>
+
         <p style={{ marginBottom: '2.5rem', lineHeight: 1.6 }}>Instead of recreating the entire image, use the image text editor to focus on the specific text that needs to change.</p>
 
         <h2 className={styles.h2} style={{ marginTop: '2.5rem', marginBottom: '1rem', fontSize: '1.75rem' }}>Edit Text in Screenshots</h2>
@@ -82,6 +87,11 @@ export function SeoContent() {
         <h2 className={styles.h2} style={{ marginTop: '2.5rem', marginBottom: '1rem', fontSize: '1.75rem' }}>Remove Text from an Image</h2>
         <p style={{ marginBottom: '1.5rem', lineHeight: 1.6 }}>You can also remove unwanted text from an image.</p>
         <p style={{ marginBottom: '1.5rem', lineHeight: 1.6 }}>Select the text area you want to remove and let the editor reconstruct the area behind it.</p>
+        
+        <div style={{ margin: '2rem 0', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-md)' }}>
+          <img src="/images/remove_text_before_after.png" alt="Before and after of removing text from an image using AI" style={{ width: '100%', height: 'auto', display: 'block' }} />
+        </div>
+
         <p style={{ marginBottom: '0.5rem', lineHeight: 1.6 }}>This can help clean up:</p>
         <ul style={{ paddingLeft: '1.5rem', marginBottom: '1.5rem', lineHeight: 1.8 }}>
           <li>Captions</li>
@@ -97,6 +107,11 @@ export function SeoContent() {
         <h2 className={styles.h2} style={{ marginTop: '2.5rem', marginBottom: '1rem', fontSize: '1.75rem' }}>AI Text Detection for Images</h2>
         <p style={{ marginBottom: '1.5rem', lineHeight: 1.6 }}>The editor uses text detection to identify words inside an uploaded image.</p>
         <p style={{ marginBottom: '1.5rem', lineHeight: 1.6 }}>This makes it easier to find the text you want to edit instead of manually drawing around every letter.</p>
+        
+        <div style={{ margin: '2rem 0', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-md)' }}>
+          <img src="/images/extract_text_ocr.png" alt="Visual representation of OCR text extraction from a document" style={{ width: '100%', height: 'auto', display: 'block' }} />
+        </div>
+
         <p style={{ marginBottom: '1.5rem', lineHeight: 1.6 }}>Text detection can be useful for photos, screenshots, posters, advertisements, product graphics, and other images containing readable text.</p>
         <p style={{ marginBottom: '2.5rem', lineHeight: 1.6 }}>For difficult images, recognition may be less accurate when text is extremely small, blurry, distorted, handwritten, or heavily blended into the background.</p>
 
