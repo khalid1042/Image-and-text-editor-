@@ -11,7 +11,8 @@ export function GuideLayout({ title, children }: { title: string, children: Reac
     <div className={styles.container}>
       <header className={styles.header}>
         <div className={styles.logo}>
-          <Link href="/" className={styles.logoText} style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
+          <Link href="/" className={styles.logoText} style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <img src="/logo.svg" alt="icon" style={{ height: '40px', width: 'auto' }} />
             <span className={styles.logoText}>photext.ai</span>
           </Link>
         </div>

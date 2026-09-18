@@ -71,7 +71,8 @@ export default function ResizeImagePage() {
     <div className={styles.container} style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <header className={styles.header}>
         <div className={styles.logo}>
-          <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+          <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', gap: '10px' }}>
+            <img src="/logo.svg" alt="icon" style={{ height: '40px', width: 'auto' }} />
             <span className={styles.logoText}>photext.ai</span>
           </Link>
         </div>

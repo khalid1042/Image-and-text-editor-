@@ -9,7 +9,8 @@ export function PlaceholderPage({ title }: { title: string }) {
     <div className={styles.container}>
       <header className={styles.header}>
         <div className={styles.logo}>
-          <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+          <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', gap: '10px' }}>
+            <img src="/logo.svg" alt="icon" style={{ height: '40px', width: 'auto' }} />
             <span className={styles.logoText}>photext.ai</span>
           </Link>
         </div>

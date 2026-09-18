@@ -11,7 +11,8 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <div className={styles.logo}>
+        <div className={styles.logo} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <img src="/logo.svg" alt="icon" style={{ height: '40px', width: 'auto' }} />
           <span className={styles.logoText}>photext.ai</span>
         </div>
         <nav className={styles.nav}>

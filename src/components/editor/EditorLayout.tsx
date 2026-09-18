@@ -178,7 +178,8 @@ export function EditorLayout() {
     <div className={styles.editorContainer}>
       {/* Top Bar */}
       <header className={styles.topbar}>
-        <div className={styles.logo} onClick={() => router.push("/")}>
+        <div className={styles.logo} onClick={() => router.push("/")} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <img src="/logo.svg" alt="icon" style={{ height: '32px', width: 'auto' }} />
           <span>photext.ai</span>
         </div>
         
